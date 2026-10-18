@@ -25,12 +25,14 @@ class PoliceStationController extends Controller
     public function store(Request $request):JsonResponse{
         //Validation
         $validate = $request->validate([
+            'district_id' => 'required|exists:districts,id',
             'name' => 'required|string|max:100',
             'order'=> 'required|integer|min:0'
         ]);
 
         // Data create on table
         $policestation = new PoliceStation;
+        $policestation->district_id = $request->district_id;
         $policestation->name = $request->name;
         $policestation->order= $request->order;
         // $PoliceStation->created_at = '';
@@ -42,6 +44,45 @@ class PoliceStationController extends Controller
             'success' => true,
             'message' => 'PoliceStation created successfully',
             'data'    => $policestation
+        ], 200);
+    }
+    // TODO: GET PoliceStation by ID
+    public function show($id): JsonResponse
+    {
+        $policeStation = PoliceStation::find($id);
+
+        // Check if police station exists
+        if (!$policeStation) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Police Station not found'
+            ], 404);
+        }
+
+        // Response
+        return response()->json([
+            'success' => true,
+            'message' => 'Police Station retrieved successfully',
+            'data' => $policeStation
+        ], 200);
+    }
+    
+    //GET district-wise police stations
+    public function districtWisePoliceStation($district_id): JsonResponse
+    {
+        
+    //Find all police stations for this district ID
+    $policeStations = PoliceStation::where(
+            'district_id',
+            $district_id
+        )->get();
+
+    // Response
+    return response()->json([
+            'success' => true,
+            'message' => 'District-wise police stations retrieved successfully',
+            'count' => $policeStations->count(),
+            'data' => $policeStations
         ], 200);
     }
 }

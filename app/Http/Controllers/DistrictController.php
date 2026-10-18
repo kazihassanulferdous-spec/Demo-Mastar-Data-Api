@@ -6,6 +6,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\District;
 
+
+use App\Models\PoliceStation;
 class DistrictController extends Controller
 {
     // GET All district data
@@ -28,8 +30,7 @@ class DistrictController extends Controller
             'name' => 'required|string|max:100',
             'order'=> 'required|integer|min:0'
         ]);
-
-        // Data create on table
+           // Data create on table
         $district = new District;
         $district->name = $request->name;
         $district->order= $request->order;
@@ -44,4 +45,26 @@ class DistrictController extends Controller
             'data'    => $district
         ], 200);
     }
+    //TODO: GET district by id  
+    public function show($id): JsonResponse{
+        $district = District::find($id);
+        
+        // Check if district exists
+        if (!$district) {
+            return response()->json([
+                'success' => false,
+                'message' => 'District not found'
+            ], 404);
+        }
+
+        //Response
+        return response()->json([
+            'success' => true,
+            'message' => 'District retrieved successfully',
+            'data'    => $district
+        ], 200);
+    }
+       
+     
 }
+

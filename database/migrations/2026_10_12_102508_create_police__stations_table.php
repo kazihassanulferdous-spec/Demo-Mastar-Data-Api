@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('police_stations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('district_id')->constrained('districts')->cascadeOnDelete();
+            $table->string('name', 100)->unique();
             $table->integer('order')->default(0);
             $table->dateTime('created_at', precision: 0)->useCurrent();
             $table->dateTime('updated_at', precision: 0)->useCurrent()->useCurrentOnUpdate();
-        });
+        
+        });     
     }
 
     /**
@@ -27,6 +29,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('policestations');
+        Schema::table('police_stations', function (Blueprint $table) {
+            $table->dropForeign(['district_id']);
+            $table->dropColumn('district_id');
+        });
     }
 };

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('districts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 100)->unique();
             $table->integer('order')->default(0);
             $table->dateTime('created_at', precision: 0)->useCurrent();
             $table->dateTime('updated_at', precision: 0)->useCurrent()->useCurrentOnUpdate();
