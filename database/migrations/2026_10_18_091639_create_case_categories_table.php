@@ -17,7 +17,7 @@ public function up(): void
         $table->string('name_bn', 100);
         $table->boolean('status')->default(true);
         $table->unsignedBigInteger('created_by')->nullable();
-       $table->unsignedBigInteger('parent_id')->nullable();
+        $table->unsignedBigInteger('parent_id')->nullable();
         $table->foreign('parent_id')->references('id')->on('dispute_types')->onDelete('set null');
         $table->integer('order')->default(0);
         $table->timestamps();

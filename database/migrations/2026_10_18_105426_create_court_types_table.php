@@ -17,6 +17,9 @@ return new class extends Migration
         $table->string('name_bn', 100);
         $table->boolean('status')->default(true);
         $table->bigInteger('order')->default(0);
+         $table->foreignId('court_type_id')
+              ->constrained('court_types');
+        $table->unsignedBigInteger('created_by')->nullable();
         $table->timestamps();
 
     });

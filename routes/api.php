@@ -9,6 +9,7 @@ use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\DisputeTypeController;
 use App\Http\Controllers\CaseCategoryController;
 use App\Http\Controllers\CourtTypeController;
+use App\Http\Controllers\CourtController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -53,4 +54,19 @@ Route::post('/case-category', [CaseCategoryController::class, 'store']);
 //GET All Court Types
 Route::get('/court-types', [CourtTypeController::class, 'index']);
 //Create Court Type
-Route::post('/court-type', [CourtTypeController::class, 'store']);   
+Route::post('/court-type', [CourtTypeController::class, 'store']);
+
+
+//Court Routes`
+//GET All Courts
+Route::get('/courts', [CourtController::class, 'index']);
+//GET Single Court
+Route::get('/courts/{id}', [CourtController::class, 'show']);
+//Create Court
+Route::post('/courts', [CourtController::class, 'store']);
+//Update Court
+Route::put('/courts/{id}', [CourtController::class, 'update']);
+//Delete Court
+Route::delete('/courts/{id}', [CourtController::class, 'destroy']);
+
+Route::apiResource('courts', CourtController::class);
