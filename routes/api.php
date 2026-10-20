@@ -10,6 +10,7 @@ use App\Http\Controllers\DisputeTypeController;
 use App\Http\Controllers\CaseCategoryController;
 use App\Http\Controllers\CourtTypeController;
 use App\Http\Controllers\CourtController;
+use App\Http\Controllers\CaseManagementController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -70,3 +71,5 @@ Route::put('/courts/{id}', [CourtController::class, 'update']);
 Route::delete('/courts/{id}', [CourtController::class, 'destroy']);
 
 Route::apiResource('courts', CourtController::class);
+
+Route::apiResource('case-managements', CaseManagementController::class);
