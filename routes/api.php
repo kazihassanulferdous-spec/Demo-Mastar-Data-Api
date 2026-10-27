@@ -11,6 +11,8 @@ use App\Http\Controllers\CaseCategoryController;
 use App\Http\Controllers\CourtTypeController;
 use App\Http\Controllers\CourtController;
 use App\Http\Controllers\CaseManagementController;
+use App\Http\Controllers\UpazilaController;
+use App\Http\Controllers\OrganizationController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -69,7 +71,32 @@ Route::post('/courts', [CourtController::class, 'store']);
 Route::put('/courts/{id}', [CourtController::class, 'update']);
 //Delete Court
 Route::delete('/courts/{id}', [CourtController::class, 'destroy']);
-
+//Court Routes
 Route::apiResource('courts', CourtController::class);
 
+//Case Management Routes
 Route::apiResource('case-managements', CaseManagementController::class);
+
+//Upazila Routes
+Route::get('/upazilas', [UpazilaController::class, 'index']);
+//Create Upazila
+Route::post('/upazilas', [UpazilaController::class, 'store']);
+//Get single Upazila by ID
+Route::get('/upazilas/{id}', [UpazilaController::class, 'show']);
+//Update Upazila
+Route::put('/upazilas/{id}', [UpazilaController::class, 'update']);
+//Delete Upazila
+Route::delete('/upazilas/{id}', [UpazilaController::class, 'destroy']);
+//District-wise Upazilas
+Route::get('/districts/{district_id}/upazilas', [UpazilaController::class, 'getUpazilasByDistrict']);
+
+//Organization Routes
+Route::get('/organizations', [OrganizationController::class, 'index']);
+//Create Organization
+Route::post('/organizations', [OrganizationController::class, 'store']);
+//Get single Organization by ID
+Route::get('/organizations/{id}', [OrganizationController::class, 'show']);
+//Update Organization
+Route::put('/organizations/{id}', [OrganizationController::class, 'update']);
+//Delete Organization
+Route::delete('/organizations/{id}', [OrganizationController::class, 'destroy']);
